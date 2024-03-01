@@ -10,51 +10,78 @@
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f8f9fa;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
         }
         .container {
-            width: 300px;
-            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            padding: 40px;
             background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .container:before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-image: radial-gradient(circle at 80% 20%, #22c1c3, #fdbb2d);
+            transform: rotate(22deg);
+            z-index: -1;
         }
         h2 {
-            text-align: center;
             margin-bottom: 20px;
             color: #333;
         }
         input[type="text"],
         input[type="password"] {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 25px;
             box-sizing: border-box;
+            background-color: #f3f4f6;
+            border: 1px solid #f3f4f6;
+            outline: none;
+        }
+        input[type="text"]::placeholder,
+        input[type="password"]::placeholder {
+            color: #888;
         }
         button[type="submit"] {
             width: 100%;
-            padding: 10px;
-            background-color: #007bff;
+            padding: 15px;
+            background-color: #22c1c3;
             color: #fff;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            outline: none;
         }
         button[type="submit"]:hover {
-            background-color: #0056b3;
+            background-color: #1d9b9f;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Login</h2>
+        <h2>NFC Web Attendance Login</h2>
         <form action="/login" method="post">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
