@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Your head content -->
+    <style>
+        /* CSS for tabs */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            margin-top: 20px;
+        }
+
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+        }
+
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        /* CSS for tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container fade-in">
+        <h2>Welcome <%= username %>!</h2>
+        <!-- Tabs -->
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'welcome')">Welcome</button>
+            <button class="tablinks" onclick="openTab(event, 'attendance')">View Attendance</button>
+            <button class="tablinks" onclick="openTab(event, 'profile')">Profile</button>
+        </div>
+
+        <!-- Tab Content -->
+        <div id="welcome" class="tabcontent">
+            <!-- Welcome content with button for taking attendance -->
+            <h3>Welcome</h3>
+            <button onclick="takeAttendance()">Take Attendance</button>
+        </div>
+
+        <div id="attendance" class="tabcontent">
+            <!-- Attendance content -->
+            <h3>Attendance:</h3>
+            <ul>
+                <% attendanceData.forEach(data => { %>
+                    <li><strong><%= data.serialNumber %></strong> - <%= data.logData %> - <%= data.time %></li>
+                <% }); %>
+            </ul>
+        </div>
+
+        <div id="profile" class="tabcontent">
+            <!-- Profile content -->
+            <h3>Profile</h3>
+            <p>Teacher Information:</p>
+            <!-- Display teacher information such as number, email, teacher name, subject, class, etc. -->
+        </div>
+    </div>
+
+    <!-- JavaScript for tab functionality -->
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Functionality for taking attendance button
+        function takeAttendance() {
+            // Redirect to the specified URL
+            window.location.href = "https://keshav-lemon.vercel.app/";
+        }
+
+        // By default, open the welcome tab
+        document.getElementById("welcome").style.display = "block";
+    </script>
+</body>
+</html>
