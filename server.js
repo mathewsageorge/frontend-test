@@ -32,6 +32,21 @@ const users = {
     teacher1: { username: 'teacher1', password: 'password1', students: [{ name: 'Student 1', attendance: 'Present' }, { name: 'Student 2', attendance: 'Absent' }] }
 };
 
+// Function to map serial numbers to student names
+function mapSerialToStudentName(serialNumber) {
+    // Implement your logic to map serial numbers to student names
+    // For example, you can hardcode a mapping or fetch it from another source
+    // For demonstration purposes, I'm hardcoding a simple mapping
+    const serialToNameMap = {
+        "05:34:6a:64:26:b0:c1": "Mathews",
+        "05:39:01:60:06:b0:c1":"ANSU",
+     "05:33:96:60:06:b0:c1":"KESHAV",
+
+        // Add more mappings as needed
+    };
+    return serialToNameMap[serialNumber] || "Unknown"; // Return student name or "Unknown" if not found
+}
+
 app.get('/', (req, res) => {
     res.render('login');
 });
@@ -44,7 +59,17 @@ app.post('/login', async (req, res) => {
             // Fetch attendance data from MongoDB and pass it to dashboard template
             const attendanceData = await Attendance.find({});
             console.log('Attendance Data:', attendanceData); // Log attendance data
-            res.render('dashboard', { username: user.username, students: user.students, attendanceData: attendanceData });
+            
+            // Map attendance data to include student names
+            const mappedAttendanceData = attendanceData.map(data => {
+                return {
+                    studentName: mapSerialToStudentName(data.serialNumber),
+                    logData: data.logData,
+                    time: data.time
+                };
+            });
+
+            res.render('dashboard', { username: user.username, students: user.students, attendanceData: mappedAttendanceData });
         } catch (err) {
             console.error('Error retrieving attendance data:', err);
             res.render('error', { message: 'Error retrieving attendance data' });
