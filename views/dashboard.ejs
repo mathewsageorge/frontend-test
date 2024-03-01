@@ -9,38 +9,74 @@
             border: 1px solid #ccc;
             background-color: #f1f1f1;
             margin-top: 20px;
+            border-radius: 10px;
         }
 
         .tab button {
-            background-color: inherit;
+            background-color: #55c57a;
             float: left;
             border: none;
             outline: none;
             cursor: pointer;
-            padding: 14px 16px;
+            padding: 14px 20px;
             transition: 0.3s;
+            border-radius: 10px 10px 0 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            margin-right: 5px;
         }
 
         .tab button:hover {
-            background-color: #ddd;
+            background-color: #4bc08a;
         }
 
         .tab button.active {
-            background-color: #ccc;
+            background-color: #4bc08a;
+        }
+
+        /* Additional button color */
+        .secondary-button {
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+
+        .secondary-button:hover {
+            background-color: #d32f2f;
         }
 
         /* CSS for tab content */
         .tabcontent {
             display: none;
-            padding: 6px 12px;
+            padding: 20px;
             border: 1px solid #ccc;
             border-top: none;
+            border-radius: 0 0 10px 10px;
+            background-color: #fff;
+        }
+
+        /* Additional styling */
+        .content {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .content:hover {
+            transform: translateY(-5px);
         }
     </style>
 </head>
 <body>
     <div class="container fade-in">
-        <h2>Welcome <%= username %>!</h2>
+        <h2 style="color: #55c57a;">Welcome <%= username %>!</h2>
         <!-- Tabs -->
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'welcome')">Welcome</button>
@@ -51,25 +87,32 @@
         <!-- Tab Content -->
         <div id="welcome" class="tabcontent">
             <!-- Welcome content with button for taking attendance -->
-            <h3>Welcome</h3>
-            <button onclick="takeAttendance()">Take Attendance</button>
+            <div class="content">
+                <h3 style="color: #55c57a;">Welcome</h3>
+                <p>Welcome to your dashboard! Explore the tabs to manage your tasks, view attendance, and update your profile.</p>
+                <button onclick="takeAttendance()" class="secondary-button">Take Attendance</button>
+            </div>
         </div>
 
         <div id="attendance" class="tabcontent">
             <!-- Attendance content -->
-            <h3>Attendance:</h3>
-            <ul>
-                <% attendanceData.forEach(data => { %>
-                    <li><strong><%= data.serialNumber %></strong> - <%= data.logData %> - <%= data.time %></li>
-                <% }); %>
-            </ul>
+            <div class="content">
+                <h3>Attendance:</h3>
+                <ul class="attendance-list">
+                    <% attendanceData.forEach(data => { %>
+                        <li><strong><%= data.studentName %></strong> - <%= data.logData %> - <%= data.time %></li>
+                    <% }); %>
+                </ul>
+            </div>
         </div>
 
         <div id="profile" class="tabcontent">
             <!-- Profile content -->
-            <h3>Profile</h3>
-            <p>Teacher Information:</p>
-            <!-- Display teacher information such as number, email, teacher name, subject, class, etc. -->
+            <div class="content">
+                <h3>Profile</h3>
+                <p>Teacher Information:</p>
+                <!-- Display teacher information such as number, email, teacher name, subject, class, etc. -->
+            </div>
         </div>
     </div>
 
